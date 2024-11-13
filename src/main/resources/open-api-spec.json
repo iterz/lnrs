@@ -1,0 +1,192 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "version": "3.0.0",
+        "title": "Companies Search Service"
+    },
+    "servers": [
+        {
+            "url": "{baseUrl}/api"
+        }
+    ],
+    "tags": [
+        {
+            "name": "companies"
+        },
+        {
+            "name": "officers"
+        }
+
+    ],
+    "x-tagGroups": [
+        {
+            "name": "Company Search",
+            "tags": [
+                "companies",
+                "officers"
+            ]
+        }
+    ],
+    "paths": {
+        "/companies": {
+            "description": "Companies Search",
+            "post": {
+                "tags": [
+                    "companies"
+                ],
+                "summary": "Retrieve companies with officers",
+                "description": "Retrieve companies with officers",
+                "operationId": "searchCompanies",
+                "parameters": [
+                    {
+                        "name": "active",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean",
+                            "default": false
+                        },
+                        "example": false
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CompanyRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Companies",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CompaniesResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+     },
+    "components": {
+        "schemas": {
+            "CompanyRequest": {
+                "type": "object",
+                "properties": {
+                    "companyName": {
+                        "type": "string",
+                        "example": "TRUNARRATIVE LTD"
+                    },
+                    "companyNumber": {
+                        "type": "string",
+                        "example": "10241297"
+                    }
+                }
+            },
+             "CompaniesResource": {
+                "type": "object",
+                "properties": {
+                    "total_results": {
+                        "type": "number",
+                        "example": 3
+                    },
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CompanyResource"
+                        }
+                    }
+                }
+            },
+            "CompanyResource": {
+                "type": "object",
+                "properties": {
+                    "company_number": {
+                       "type": "string",
+                       "example": "18012"
+                    },
+                    "company_type": {
+                        "type": "string",
+                        "example": "ltd"
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "BBC LIMITED"
+                    },
+                    "company_status": {
+                        "type": "string",
+                        "example": "active"
+                    },
+                    "date_of_creation": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2008-02-11"
+                    },
+                    "address": {
+                        "type": "object",
+                        "$ref": "#/components/schemas/AddressResource"
+                    },
+                    "officers": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/OfficerResource"
+                        }
+                    }
+                }
+            },
+            "OfficerResource": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "example": "BOXALL, Sarah Victoria"
+                    },
+                    "officer_role": {
+                        "type": "string",
+                        "example": "secretary"
+                    },
+                    "appointed_on": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2024-12-25"
+                    },
+                     "address": {
+                        "type": "object",
+                        "$ref": "#/components/schemas/AddressResource"
+                    }
+                }
+            },
+            "AddressResource": {
+                "type": "object",
+                "properties": {
+                    "locality": {
+                        "type": "string",
+                        "example": "Retford"
+                    },
+                    "postal_code": {
+                        "type": "string",
+                        "example": "DN22 0AD"
+                    },
+                    "premises": {
+                        "type": "string",
+                        "example": "Boswell Cottage Main Street"
+                    },
+                    "address_line_1": {
+                        "type": "string",
+                        "example": "North Leverton"
+                    },
+                    "country": {
+                        "type": "string",
+                        "example": "England"
+                    }
+                }
+            }
+        }
+    }
+}
