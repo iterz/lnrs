@@ -17,3 +17,7 @@ To run the app (with the local profile) from the command-line:
 ```
 mvn [-PswaggerUI] spring-boot:run -Dspring-boot.run.profiles=local
 ```
+
+## Swagger UI
+
+http://localhost:8080/swagger-ui/index.html
